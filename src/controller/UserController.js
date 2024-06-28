@@ -10,15 +10,15 @@ const UserController = {
                 imgUrl = imgUrl + `${req.file.filename}`
             }
 
-            const novoUser = {
-                id: Users[Users.length-1]?.id ? Users[Users.length-1]?.id+1 : 1,
-                nome: nome,
-                cpf: cpf,
-                email: email,
-                senha: senha,
-                telefone: telefone,
-                img: imgUrl
-            }
+            // const novoUser = {
+            //     id: Users[Users.length-1]?.id ? Users[Users.length-1]?.id+1 : 1,
+            //     nome: nome,
+            //     cpf: cpf,
+            //     email: email,
+            //     senha: senha,
+            //     telefone: telefone,
+            //     img: imgUrl
+            // }
             // Users.push(novoUser);
             // Inserir no banco
             let sql = `INSERT INTO usuarios (nome, cpf, email, senha, telefone, img) VALUES (?, ?, ?, ?, ?, ?)`
