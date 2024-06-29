@@ -102,6 +102,8 @@ const LocalController = {
             }
         return res.status(200).json({mensagem: "Local deletado com sucesso!"})
     }
+
+    
 }
 
 module.exports = LocalController;
