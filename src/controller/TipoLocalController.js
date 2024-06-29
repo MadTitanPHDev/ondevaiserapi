@@ -7,11 +7,11 @@ const TipoLocalController = {
 
         const novoTipo = {
             id: TipoLocal[TipoLocal.length-1]?.id ? TipoLocal[TipoLocal.length-1]?.id+1 : 1,
-            tipoLocal: tipo
+            tipoLocal: nome_tipo
         }
 
-        let sql = `INSERT INTO TipoLocal(nome_tipo, id_tipo) VALUES (?, ?)`
-        const result = await pool.query(sql, [nome_tipo, 1])
+        let sql = `INSERT INTO TipoLocal(nome_tipo) VALUES (?)`
+        const result = await pool.query(sql, [nome_tipo])
         const insertId = result[0]?.insertId;
         if(!insertId)
             {
@@ -23,7 +23,7 @@ const TipoLocalController = {
     },
 
     async listar(req, res) {
-        let sql = "SELECT * FROM TipoLocal";
+        let sql = "SELECT * FROM tipolocal";
         const[rows] = await pool.query(sql);
 
         return res.status(200).json(rows);

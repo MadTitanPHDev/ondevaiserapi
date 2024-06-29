@@ -1,6 +1,7 @@
 const express = require('express');
 const UserController = require('../controller/UserController');
 const LocalController = require('../controller/LocalController');
+const TipoLocalController = require('../controller/TipoLocalController');
 const multer = require('multer');
 const router = express.Router();
 const crypto = require('crypto');
@@ -29,5 +30,11 @@ router.post('/locals', upload.single('img'), LocalController.criar);
 router.put('/locals/:id', upload.single('img'), LocalController.alterar);
 router.get('/locals/:id', LocalController.show);
 router.delete('/locals/:id', LocalController.deletar);
+
+router.get('/tipoLocal', TipoLocalController.listar);
+router.post('/tipoLocal', upload.single('img'), TipoLocalController.criar);
+router.put('/tipoLocal/:id', upload.single('img'), TipoLocalController.alterar);
+router.get('/tipoLocal/:id', TipoLocalController.show);
+router.delete('/tipoLocal/:id', TipoLocalController.deletar);
 
 module.exports = router;

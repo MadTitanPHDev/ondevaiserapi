@@ -3,26 +3,27 @@ const pool = require('../database/mysql');
 const date = new Date();
 const LocalController = {
     async criar(req, res) {
-        const {nomeLocal, endereco, cep, valor, carac, descr} = req.body;
+        const {nomeLocal, endLocal, cep, valor, descricao, Usuarios_idUsuarios, TipoLocal_id_tipo} = req.body;
         
             let imgUrl = 'http://localhost:3333/images/'
             if(req.file) {
                 imgUrl = imgUrl + `${req.file.filename}`
             }
 
-            const novoLocal = {
-                id: Locals[Locals.length-1]?.id ? Locals[Locals.length-1]?.id+1 : 1,
-                nomeLocal: nomeLocal,
-                endereco: endereco,
-                cep: cep,
-                valor: valor,
-                // carac: carac,
-                descr: descr,
-                img: imgUrl
-            }
+            // const novoLocal = {
+            //     id: Locals[Locals.length-1]?.id ? Locals[Locals.length-1]?.id+1 : 1,
+            //     nomeLocal: nomeLocal,
+            //     endereco: endLocal,
+            //     cep: cep,
+            //     valor: valor,
+            //     descr: descr,
+            //     img: imgUrl,
+            //     Usuarios_idUsuarios: Usuarios_idUsuarios,
+            //     TipoLocal_id_tipo: TipoLocal_id_tipo
+            // }
             // Locals.push(novoLocal);
-            let sql = `INSERT INTO local (nomeLocal, endereco, cep, valor, descr, img) VALUES (?, ?, ?, ?, ?, ?)`
-            const result = await pool.query(sql, [nomeLocal, endereco, cep, valor, descr, imgUrl])
+            let sql = `INSERT INTO local (nomeLocal, endLocal, cep, valor, descricao, img, Usuarios_idUsuarios, TipoLocal_id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+            const result = await pool.query(sql, [nomeLocal, endLocal, cep, valor, descricao, imgUrl, Usuarios_idUsuarios, TipoLocal_id_tipo])
             const insertId = result[0]?.insertId;
             if(!insertId)
                 {
@@ -34,7 +35,7 @@ const LocalController = {
     },
 
     async listar(req, res) {
-        let sql = "select * from local";
+        let sql = "SELECT * from local";
         const [rows] = await pool.query(sql);
 
         return res.status(200).json(rows);
@@ -43,7 +44,7 @@ const LocalController = {
     async alterar(req, res) {
         const paramId = req.params.id;
 
-        const {nomeLocal, endereco, cep, valor, descr} = req.body;
+        const {nomeLocal, endLocal, cep, valor, descricao, Usuarios_idUsuarios, TipoLocal_id_tipo} = req.body;
 
         let imgUrl = 'http://localhost:3333/images/'
         if(req.file) {
@@ -54,17 +55,17 @@ const LocalController = {
         // const localIndex = Locals.findIndex(local => local.id === parseInt(paramId));
 
         // local.nomeLocal = nomeLocal;
-        // local.endereco = endereco;
+        // local.endereco = endLocal;
         // local.cep = cep;
         // local.valor = valor;
         // local.carac = carac;
-        // local.descr = descr;
+        // local.descricao = descricao;
         // local.img = imgUrl;
 
         // Locals[localIndex] = local;
 
-        let sql = "UPDATE local SET nomeLocal = ?, endereco = ?, cep = ?, valor = ?, descr = ?, img = ? WHERE idLocal = ?"
-        const result = await pool.query(sql, [nomeLocal, endereco, cep, valor, descr, imgUrl, Number(paramId)])
+        let sql = "UPDATE local SET nomeLocal = ?, endLocal = ?, cep = ?, valor = ?, descricao = ?, img = ?, Usuarios_idUsuarios = ?, TipoLocal_id_tipo = ? WHERE idLocal = ?"
+        const result = await pool.query(sql, [nomeLocal, endLocal, cep, valor, descricao, imgUrl, Usuarios_idUsuarios, TipoLocal_id_tipo, Number(paramId)])
         const changedRows = result[0]?.changedRows;
         if(!changedRows)
             {
