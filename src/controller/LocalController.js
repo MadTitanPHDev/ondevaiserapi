@@ -9,19 +9,6 @@ const LocalController = {
             if(req.file) {
                 imgUrl = imgUrl + `${req.file.filename}`
             }
-
-            // const novoLocal = {
-            //     id: Locals[Locals.length-1]?.id ? Locals[Locals.length-1]?.id+1 : 1,
-            //     nomeLocal: nomeLocal,
-            //     endereco: endereco,
-            //     cep: cep,
-            //     valor: valor,
-            //     descr: descr,
-            //     img: imgUrl,
-            //     Usuarios_idUsuarios: Usuarios_idUsuarios,
-            //     TipoLocal_id_tipo: TipoLocal_id_tipo
-            // }
-            // Locals.push(novoLocal);
             let sql = `INSERT INTO local (nomeLocal, endereco, cep, valor, descr, img, Usuarios_idUsuarios, TipoLocal_id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
             const result = await pool.query(sql, [nomeLocal, endereco, cep, valor, descr, imgUrl, Usuarios_idUsuarios, TipoLocal_id_tipo])
             const insertId = result[0]?.insertId;
@@ -51,19 +38,6 @@ const LocalController = {
             imgUrl = imgUrl + `${req.file.filename}`
         }
 
-        // const local = Locals.find(local => local.id === parseInt(paramId) ? true : false);
-        // const localIndex = Locals.findIndex(local => local.id === parseInt(paramId));
-
-        // local.nomeLocal = nomeLocal;
-        // local.endereco = endereco;
-        // local.cep = cep;
-        // local.valor = valor;
-        // local.carac = carac;
-        // local.descr = descr;
-        // local.img = imgUrl;
-
-        // Locals[localIndex] = local;
-
         let sql = "UPDATE local SET nomeLocal = ?, endereco = ?, cep = ?, valor = ?, descr = ?, img = ?, Usuarios_idUsuarios = ?, TipoLocal_id_tipo = ? WHERE idLocal = ?"
         const result = await pool.query(sql, [nomeLocal, endereco, cep, valor, descr, imgUrl, Usuarios_idUsuarios, TipoLocal_id_tipo, Number(paramId)])
         const changedRows = result[0]?.changedRows;
@@ -79,8 +53,6 @@ const LocalController = {
 
     async show(req, res) {
         const paramId = req.params.id;
-        // const local = Locals.find(local => local.id === parseInt(paramId) ? true : false);
-        // return res.status(201).json(local);
         const sql_select = 'SELECT * from local where idLocal = ?'
         const [rows] = await pool.query(sql_select, [Number(paramId)])
         return res.status(201).json(rows[0])
@@ -88,11 +60,6 @@ const LocalController = {
 
     async deletar(req, res) {
         const paramId = req.params.id;
-        // const localIndex = Locals.findIndex(local => local.id === parseInt(paramId));
-        // Locals = [
-        //     ...Locals.slice(0, localIndex),
-        //     ...Locals.slice(localIndex + 1, Locals.length)
-        // ]
         let sql = `DELETE from local WHERE idLocal = ?`
         const result = await pool.query(sql, [Number(paramId)])
         const affectedRows = result[0]?.affectedRows;
@@ -107,5 +74,3 @@ const LocalController = {
 }
 
 module.exports = LocalController;
-
-// provavelmente o erro esta ao encontrar o id do usuario
