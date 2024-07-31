@@ -1,4 +1,4 @@
-let CaraGeral = require('../model/CaracGeral');
+let CaracGeral = require('../model/CaracGeral');
 
 // Exemplo de lista de características (pode ser ajustado conforme suas necessidades)
 const caracteristicasExemplo = [

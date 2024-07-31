@@ -2,6 +2,7 @@ const express = require('express');
 const UserController = require('../controller/UserController');
 const LocalController = require('../controller/LocalController');
 const TipoLocalController = require('../controller/TipoLocalController');
+const ComentImoveisController = require('../controller/ComentImoveisController');
 const multer = require('multer');
 const router = express.Router();
 const crypto = require('crypto');
@@ -36,5 +37,11 @@ router.post('/tipoLocal', upload.single('img'), TipoLocalController.criar);
 router.put('/tipoLocal/:id', upload.single('img'), TipoLocalController.alterar);
 router.get('/tipoLocal/:id', TipoLocalController.show);
 router.delete('/tipoLocal/:id', TipoLocalController.deletar);
+
+router.get('/comentImoveis', ComentImoveisController.listar);
+router.post('/comentImoveis', upload.single('img'), ComentImoveisController.criar);
+router.put('/comentImoveis/:id', upload.single('img'), ComentImoveisController.alterar);
+router.get('/comentImoveis/:id', ComentImoveisController.show);
+router.delete('/comentImoveis/:id', ComentImoveisController.deletar);
 
 module.exports = router;
