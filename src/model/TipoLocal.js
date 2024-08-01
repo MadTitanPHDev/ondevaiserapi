@@ -1,3 +1,3 @@
-let tipoLocal = [];
+let TipoLocal = [];
 
-module.exports = tipoLocal;
+module.exports = TipoLocal;

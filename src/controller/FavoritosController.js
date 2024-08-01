@@ -1,3 +1,4 @@
+
 let favoritos = require('../model/Favoritos');
 const pool = require('../database/mysql');
 const date = new Date();
