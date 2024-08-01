@@ -1,3 +1,5 @@
-let Favoritos = [];
 
-module.exports = Favoritos;
+let favoritos = [];
+
+module.exports = favoritos;
+
