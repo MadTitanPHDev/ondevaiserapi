@@ -1,6 +1,7 @@
 let comentImoveis = require('../model/ComentImoveis');
 const pool = require('../database/mysql');
 const date = new Date();
+
 const ComentImoveisController = {
     async criar(req, res) {
         const {comentario, data, nota, Local_idLocal} = req.body;

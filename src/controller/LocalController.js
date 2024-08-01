@@ -1,6 +1,7 @@
 let Locals = require('../model/Local');
 const pool = require('../database/mysql');
 const date = new Date();
+
 const LocalController = {
     async criar(req, res) {
         const {nomeLocal, endereco, cep, valor, descr, Usuarios_idUsuarios, TipoLocal_id_tipo} = req.body;
