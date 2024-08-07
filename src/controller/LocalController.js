@@ -5,15 +5,15 @@ const date = new Date();
 const LocalController = {
     async criar(req, res) {
 
-        const {nomeLocal, endereco, cep, valor, descr, Usuarios_idUsuarios, TipoLocal_id_tipo} = req.body;
+        const {nomeLocal, endLocal, cep, valor, descricao, Usuarios_idUsuarios, TipoLocal_id_tipo} = req.body;
 
         
             let imgUrl = 'http://localhost:3333/images/'
             if(req.file) {
                 imgUrl = imgUrl + `${req.file.filename}`
             }
-            let sql = `INSERT INTO local (nomeLocal, endereco, cep, valor, descr, img, Usuarios_idUsuarios, TipoLocal_id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-            const result = await pool.query(sql, [nomeLocal, endereco, cep, valor, descr, imgUrl, Usuarios_idUsuarios, TipoLocal_id_tipo])
+            let sql = `INSERT INTO local (nomeLocal, endLocal, cep, valor, descricao, img, Usuarios_idUsuarios, TipoLocal_id_tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+            const result = await pool.query(sql, [nomeLocal, endLocal, cep, valor, descricao, imgUrl, Usuarios_idUsuarios, TipoLocal_id_tipo])
 
             const insertId = result[0]?.insertId;
             if(!insertId)
@@ -35,7 +35,7 @@ const LocalController = {
     async alterar(req, res) {
         const paramId = req.params.id;
 
-        const {nomeLocal, endereco, cep, valor, descr, Usuarios_idUsuarios, TipoLocal_id_tipo} = req.body;
+        const {nomeLocal, endLocal, cep, valor, descricao, Usuarios_idUsuarios, TipoLocal_id_tipo} = req.body;
 
 
         let imgUrl = 'http://localhost:3333/images/'
@@ -43,8 +43,8 @@ const LocalController = {
             imgUrl = imgUrl + `${req.file.filename}`
         }
 
-        let sql = "UPDATE local SET nomeLocal = ?, endereco = ?, cep = ?, valor = ?, descr = ?, img = ?, Usuarios_idUsuarios = ?, TipoLocal_id_tipo = ? WHERE idLocal = ?"
-        const result = await pool.query(sql, [nomeLocal, endereco, cep, valor, descr, imgUrl, Usuarios_idUsuarios, TipoLocal_id_tipo, Number(paramId)])
+        let sql = "UPDATE local SET nomeLocal = ?, endLocal = ?, cep = ?, valor = ?, descricao = ?, img = ?, Usuarios_idUsuarios = ?, TipoLocal_id_tipo = ? WHERE idLocal = ?"
+        const result = await pool.query(sql, [nomeLocal, endLocal, cep, valor, descricao, imgUrl, Usuarios_idUsuarios, TipoLocal_id_tipo, Number(paramId)])
 
         const changedRows = result[0]?.changedRows;
         if(!changedRows)
