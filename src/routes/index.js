@@ -2,7 +2,7 @@ const express = require('express');
 const UserController = require('../controller/UserController');
 const LocalController = require('../controller/LocalController');
 const TipoLocalController = require('../controller/TipoLocalController');
-
+const LoginController = require('../controller/LoginController');
 const ComentImoveisController = require('../controller/ComentImoveisController');
 const CaracGeralController = require('../controller/CaracGeralController');
 const FavoritosController = require('../controller/FavoritosController');
@@ -31,6 +31,8 @@ router.put('/users/:id', upload.single('img'), UserController.alterar);
 router.get('/users/:id', UserController.show);
 router.delete('/users/:id', UserController.deletar);
 
+router.post('/login', LoginController.criar);
+
 router.get('/locals', LocalController.listar);
 router.post('/locals', upload.single('img'), LocalController.criar);
 router.put('/locals/:id', upload.single('img'), LocalController.alterar);
@@ -42,7 +44,6 @@ router.post('/tipoLocal', upload.single('img'), TipoLocalController.criar);
 router.put('/tipoLocal/:id', upload.single('img'), TipoLocalController.alterar);
 router.get('/tipoLocal/:id', TipoLocalController.show);
 router.delete('/tipoLocal/:id', TipoLocalController.deletar);
-
 
 router.get('/comentImoveis', ComentImoveisController.listar);
 router.post('/comentImoveis', upload.single('img'), ComentImoveisController.criar);

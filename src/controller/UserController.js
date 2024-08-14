@@ -4,21 +4,35 @@ const date = new Date();
 
 const UserController = {
     async criar(req, res) {
+        console.log(req)
         const {nome, cpf, email, senha, telefone} = req.body;
-        
+            console.log(senha)
+
+            //verifica se o email ja existe no banco
+            const sql_select_existe = `SELECT * from usuarios where email = ?`
+            const [result_existe] = await pool.query(sql_select_existe, [email])
+            console.log([result_existe])
+            if(result_existe[0])
+            return res.status(401).json({message: 'Erro ao criar usuario'})
+
             let imgUrl = 'http://localhost:3333/images/'
             if(req.file) {
                 imgUrl = imgUrl + `${req.file.filename}`
             }
 
+            //criptografa o password
+            const salt = await bcrypt.genSalt(10);
+            const hashSenha = await bcrypt.hash(String(senha), salt);
             let sql = `INSERT INTO usuarios (nome, cpf, email, senha, telefone, img) VALUES (?, ?, ?, ?, ?, ?)`
-            const result = await pool.query(sql, [nome, cpf, email, senha, telefone, imgUrl])
+           
+             // const result = await pool.query(sql, [email, password])
+            const result = await pool.query(sql, [nome, cpf, email, hashSenha, telefone, imgUrl])
             const insertId = result[0]?.insertId;
             if(!insertId)
                 {
                     return res.status(401).json({message: 'erro ao criar usuario!'})
                 }
-            const sql_select = 'SELECT * from usuarios where idUsuarios = ?'
+            const sql_select = 'SELECT id, email from usuarios where idUsuarios = ?'
             const [rows] = await pool.query(sql_select, [insertId])
             return res.status(201).json(rows[0])
     },
