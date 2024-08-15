@@ -2,7 +2,6 @@ const express = require('express');
 const UserController = require('../controller/UserController');
 const LocalController = require('../controller/LocalController');
 const TipoLocalController = require('../controller/TipoLocalController');
-const LoginController = require('../controller/LoginController');
 const ComentImoveisController = require('../controller/ComentImoveisController');
 const CaracGeralController = require('../controller/CaracGeralController');
 const FavoritosController = require('../controller/FavoritosController');
@@ -21,7 +20,7 @@ const storage = multer.diskStorage({
         const novoNomeArquivo = crypto.randomBytes(16).toString('hex');
         cb(null, `${novoNomeArquivo}.${extensaoArquivo}`);
     }
-})
+});
 
 const upload = multer({storage});
 
@@ -31,7 +30,7 @@ router.put('/users/:id', upload.single('img'), UserController.alterar);
 router.get('/users/:id', UserController.show);
 router.delete('/users/:id', UserController.deletar);
 
-router.post('/login', LoginController.criar);
+router.post('/login', upload.single('img'), UserController.login);
 
 router.get('/locals', LocalController.listar);
 router.post('/locals', upload.single('img'), LocalController.criar);
