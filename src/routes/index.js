@@ -30,7 +30,7 @@ router.put('/users/:id', upload.single('img'), UserController.alterar);
 router.get('/users/:id', UserController.show);
 router.delete('/users/:id', UserController.deletar);
 
-router.post('/login', upload.single('img'), UserController.login);
+router.post('/login', UserController.login);
 
 router.get('/locals', LocalController.listar);
 router.post('/locals', upload.single('img'), LocalController.criar);
