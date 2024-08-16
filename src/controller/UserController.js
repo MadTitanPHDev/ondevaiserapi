@@ -33,7 +33,7 @@ const UserController = {
                 {
                     return res.status(401).json({message: 'erro ao criar usuario!'})
                 }
-            const sql_select = 'SELECT id, email from usuarios where idUsuarios = ?'
+            const sql_select = 'SELECT idUsuarios, email from usuarios where idUsuarios = ?'
             const [rows] = await pool.query(sql_select, [insertId])
             return res.status(201).json(rows[0])
     },
@@ -98,7 +98,7 @@ const UserController = {
         console.log(rows)
         // verifica se existe email 
         if(!rows?.length)
-            return res.status(401).json({message: 'Login incorreto'})
+            return res.status(401).json({message: 'Login incorreto!'})
 
         console.log(rows[0]?.senha)
         // compare no hash do password
