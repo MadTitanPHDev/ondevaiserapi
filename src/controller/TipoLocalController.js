@@ -34,11 +34,13 @@ const TipoLocalController = {
         const result = await pool.query(sql, [nome_tipo, Number(paramId)])
 
         const changedRows = result[0]?.changedRows;
-        if (!changedRows) {
-            return res.status(401).json({ message: 'erro ao alterar tipo de local' })
 
-            const sql_select = "SELECT * FROM tipoLocal WHERE id_tipo = ?"
-            const [rows] = await pool.query(sql_select, [paramId])
+        if(!changedRows)
+            {
+                return res.status(401).json({message: 'erro ao alterar tipo de local'})
+            }
+        const sql_select = "SELECT * FROM tipoLocal WHERE id_tipo = ?"
+        const [rows] = await pool.query(sql_select, [paramId])
 
             return res.status(201).json(rows[0]);
         }
