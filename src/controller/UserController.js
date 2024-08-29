@@ -101,6 +101,7 @@ const UserController = {
             return res.status(401).json({message: 'Login incorreto!'})
 
         console.log(rows[0]?.senha)
+        // idEloisa = rows[0]?.idUsuarios
         // compare no hash do password
         const isPasswordValid = await bcrypt.compare(String(senha), String(rows[0]?.senha) )
         console.log(isPasswordValid)
