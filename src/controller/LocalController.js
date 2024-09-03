@@ -5,7 +5,7 @@ const date = new Date();
 const LocalController = {
     async criar(req, res) {
 
-        const {nomeLocal, endereco, cep, valor, descr, Usuarios_idUsuarios, TipoLocal_id_tipo} = req.body;
+        const {nomeLocal, endereco, cep, valor, descr, Usuarios_idUsuarios, TipoLocal_id_tipo} = JSON.parse(req.body.local);
 
         
             let imgUrl = 'http://localhost:3333/images/'
@@ -68,7 +68,7 @@ const LocalController = {
         const paramId = req.params.id;
         const sql_select = 'SELECT * from local where idLocal = ?'
         const [rows] = await pool.query(sql_select, [Number(paramId)])
-        return res.status(201).json(rows)
+        return res.status(201).json(rows[0])
     },
 
     async deletar(req, res) {
