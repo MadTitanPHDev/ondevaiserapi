@@ -33,7 +33,8 @@ router.delete('/users/:id', UserController.deletar);
 router.post('/login', UserController.login);
 
 router.get('/locals', LocalController.listar);
-router.post('/locals', upload.single('img'), LocalController.criar);
+router.get ('/locals/tipoLocal/:id', LocalController.listarByTipo);
+router.post('/locals', upload.single('file'), LocalController.criar);
 router.put('/locals/:id', upload.single('img'), LocalController.alterar);
 router.get('/locals/:id', LocalController.show);
 router.delete('/locals/:id', LocalController.deletar);
